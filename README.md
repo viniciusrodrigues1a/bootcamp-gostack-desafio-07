@@ -32,14 +32,16 @@ yarn install
 
 ### Rodando a aplicação:
 
+#### Android:
+
 ```sh
 react-native run-android
 ```
 
-<small>ou</small>
+#### iOS:
 
 ```sh
-react-native run-android
+react-native run-ios
 ```
 
 ```sh
