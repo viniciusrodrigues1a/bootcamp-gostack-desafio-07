@@ -33,7 +33,17 @@ yarn install
 ### Rodando a aplicação:
 
 ```sh
-yarn start
+react-native run-android
+```
+
+<small>ou</small>
+
+```sh
+react-native run-android
+```
+
+```sh
+react-native start
 ```
 
 ### Resultado:
