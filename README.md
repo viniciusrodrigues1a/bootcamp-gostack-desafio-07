@@ -44,6 +44,8 @@ react-native run-android
 react-native run-ios
 ```
 
+#### Iniciando o app:
+
 ```sh
 react-native start
 ```
