@@ -1,10 +1,14 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { View, Text } from 'react-native';
+
+import Header from './components/Header';
+import Routes from './routes';
 
 export default function src() {
   return (
-    <View>
-      <Text>Hello World</Text>
-    </View>
+    <>
+      <Header />
+      <Routes />
+    </>
   );
 }
