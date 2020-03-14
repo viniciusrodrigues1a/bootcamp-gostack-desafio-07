@@ -1,14 +1,20 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
-export const ProductsList = styled.FlatList``;
+export const ProductsList = styled.FlatList.attrs({
+  showsHorizontalScrollIndicator: false,
+})`
+  background: ${lighten(0.09, '#141419')};
+`;
 
 export const ProductContainer = styled.View`
   padding: 20px;
   background: #fff;
   border-radius: 8px;
-  height: 80%;
+  margin: 15px;
+  height: 70%;
+  flex: 1;
 `;
 
 export const ProductImage = styled.Image`
