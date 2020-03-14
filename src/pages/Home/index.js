@@ -58,6 +58,7 @@ export default class Home extends Component {
       <Container>
         <View>
           <FlatList
+            showsHorizontalScrollIndicator={false}
             data={this.state.data}
             keyExtractor={item => item.id}
             horizontal
