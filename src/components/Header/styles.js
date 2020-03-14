@@ -1,17 +1,11 @@
 import styled from 'styled-components/native';
 
-import logo from '../../assets/images/logo.png';
-
 export const Container = styled.View`
   background: #141419;
   flex-direction: row;
   justify-content: space-between;
   padding: 20px 15px;
 `;
-
-export const Logo = styled.Image.attrs({
-  source: logo,
-})``;
 
 export const BasketContainer = styled.View`
   position: relative;
