@@ -2,19 +2,16 @@ import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 import { darken, lighten } from 'polished';
 
-export const ProductsList = styled.FlatList.attrs({
-  showsHorizontalScrollIndicator: false,
-})`
-  background: ${lighten(0.09, '#141419')};
+export const Container = styled.View`
+  flex: 1;
+  background: ${lighten(0.08, '#141419')};
 `;
 
 export const ProductContainer = styled.View`
-  padding: 20px;
   background: #fff;
+  padding: 20px;
+  margin: 20px;
   border-radius: 8px;
-  margin: 15px;
-  height: 70%;
-  flex: 1;
 `;
 
 export const ProductImage = styled.Image`
@@ -25,6 +22,7 @@ export const ProductImage = styled.Image`
 export const ProductName = styled.Text`
   color: #666;
   font-size: 18px;
+  margin-top: 8px;
 `;
 
 export const ProductPrice = styled.Text`
@@ -36,7 +34,7 @@ export const AddToCartButton = styled(RectButton)`
   flex-direction: row;
   align-items: center;
   margin-top: 16px;
-  border-radius: 4px;
+  border-radius: 6px;
 `;
 
 export const AddToCartIconContainer = styled.View`
@@ -44,7 +42,8 @@ export const AddToCartIconContainer = styled.View`
   align-items: center;
   background: ${darken(0.06, '#7159c1')};
   padding: 6px;
-  border-radius: 4px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 `;
 
 export const AddToCartIconText = styled.Text`
@@ -60,4 +59,5 @@ export const AddToCartText = styled.Text`
   margin-right: 10px;
   flex: 1;
   text-align: center;
+  font-weight: bold;
 `;
