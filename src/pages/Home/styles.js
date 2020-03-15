@@ -12,11 +12,13 @@ export const ProductContainer = styled.View`
   padding: 20px;
   margin: 20px;
   border-radius: 8px;
+  width: 350px;
+  height: 480px;
 `;
 
 export const ProductImage = styled.Image`
-  width: 100%;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 `;
 
 export const ProductName = styled.Text`
