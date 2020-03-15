@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import img from '../../assets/images/aa.jpg';
+import api from '../../services/api';
 
 import {
   Container,
@@ -19,30 +18,24 @@ import {
 
 export default class Home extends Component {
   state = {
-    data: [
-      {
-        id: 'asdljmasdljmldas',
-        name: 'Tênis de caminhada leve confortável',
-        price: 'R$ 359,90',
-      },
-      {
-        id: 'asdljmasdasdasdasdljmldas',
-        name: 'Tênis de caminhada leve confortável',
-        price: 'R$ 359,90',
-      },
-      {
-        id: 'asdljmasdljmasdasdldas',
-        name: 'Tênis de caminhada leve confortável',
-        price: 'R$ 359,90',
-      },
-    ],
+    products: [],
+  };
+
+  componentDidMount() {
+    this.loadProducts();
+  }
+
+  loadProducts = async () => {
+    const response = await api.get('/products');
+
+    this.setState({ products: response.data });
   };
 
   renderProduct = ({ item }) => (
     <ProductContainer key={item.id}>
-      <ProductImage source={img} />
-      <ProductName>{item.name}</ProductName>
-      <ProductPrice>{item.price}</ProductPrice>
+      <ProductImage source={{ uri: item.image }} />
+      <ProductName numberOfLines={1}>{item.title}</ProductName>
+      <ProductPrice>R$ {item.price}</ProductPrice>
       <AddToCartButton>
         <AddToCartIconContainer>
           <Icon name="add-shopping-cart" size={30} color="#fff" />
@@ -54,13 +47,15 @@ export default class Home extends Component {
   );
 
   render() {
+    const { products } = this.state;
+
     return (
       <Container>
         <View>
           <FlatList
             showsHorizontalScrollIndicator={false}
-            data={this.state.data}
-            keyExtractor={item => item.id}
+            data={products}
+            keyExtractor={item => String(item.id)}
             horizontal
             renderItem={this.renderProduct}
           />
