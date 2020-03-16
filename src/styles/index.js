@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 import { lighten } from 'polished';
 
-export const ContainerWrapper = styled.View`
+export const ContainerWrapper = styled.ScrollView.attrs({
+  showsVerticalScrollIndicator: false,
+})`
   flex: 1;
   background: ${lighten(0.08, '#141419')};
 `;
