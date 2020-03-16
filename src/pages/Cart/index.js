@@ -62,7 +62,7 @@ function Cart({ cart, removeFromCart }) {
         <FlatList
           data={cart}
           renderItem={renderProduct}
-          keyExtractor={item => item.id}
+          keyExtractor={item => String(item.id)}
         />
 
         <TotalText>Total</TotalText>
