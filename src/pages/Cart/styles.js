@@ -72,3 +72,12 @@ export const BuyButtonText = styled.Text`
   text-transform: uppercase;
   text-align: center;
 `;
+
+export const EmptyCartContainer = styled.View`
+  align-items: center;
+`;
+
+export const EmptyCartText = styled.Text`
+  font-size: 26px;
+  font-weight: bold;
+`;
