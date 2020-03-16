@@ -5,16 +5,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 
 import {
-  Container,
   ProductContainer,
   ProductImage,
-  ProductName,
-  ProductPrice,
   AddToCartButton,
   AddToCartIconContainer,
   AddToCartText,
   AddToCartIconText,
 } from './styles';
+import { ContainerWrapper, ProductName, ProductPrice } from '../../styles';
 
 export default class Home extends Component {
   state = {
@@ -50,7 +48,7 @@ export default class Home extends Component {
     const { products } = this.state;
 
     return (
-      <Container>
+      <ContainerWrapper>
         <View>
           <FlatList
             showsHorizontalScrollIndicator={false}
@@ -60,7 +58,7 @@ export default class Home extends Component {
             renderItem={this.renderProduct}
           />
         </View>
-      </Container>
+      </ContainerWrapper>
     );
   }
 }
