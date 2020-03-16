@@ -18,6 +18,14 @@ export default function(state = [], action) {
 
         draft.splice(draft.indexOf(product), 1);
       });
+    case '@cart/UPDATE_AMOUNT':
+      return produce(state, draft => {
+        const product = draft.find(p => p.id === action.id);
+
+        if (action.amount > 0) {
+          product.amount = action.amount;
+        }
+      });
     default:
       return state;
   }
