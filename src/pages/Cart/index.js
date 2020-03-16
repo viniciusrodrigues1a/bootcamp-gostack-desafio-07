@@ -47,7 +47,9 @@ function Cart({ cart, removeFromCart }) {
         <ProductInfoContainer>
           <ChangeAmountContainer>
             <Icon name="add-circle-outline" size={26} color="#7159c1" />
-            <VisualizeAmountInput editable={false}>1</VisualizeAmountInput>
+            <VisualizeAmountInput editable={false}>
+              {item.amount}
+            </VisualizeAmountInput>
             <Icon name="remove-circle-outline" size={26} color="#7159c1" />
           </ChangeAmountContainer>
           <ProductPrice>R$ 179,90</ProductPrice>
