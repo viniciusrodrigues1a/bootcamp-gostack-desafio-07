@@ -22,7 +22,15 @@ import {
 } from './styles';
 import { ContainerWrapper, ProductPrice, ProductName } from '../../styles';
 
-function Cart({ cart, removeFromCart }) {
+function Cart({ cart, removeFromCart, updateAmount }) {
+  function increment(product) {
+    updateAmount(product.id, product.amount + 1);
+  }
+
+  function decrement(product) {
+    updateAmount(product.id, product.amount - 1);
+  }
+
   function handleRemoveProduct(id) {
     removeFromCart(id);
   }
@@ -46,11 +54,21 @@ function Cart({ cart, removeFromCart }) {
 
         <ProductInfoContainer>
           <ChangeAmountContainer>
-            <Icon name="add-circle-outline" size={26} color="#7159c1" />
+            <Icon
+              name="add-circle-outline"
+              size={26}
+              color="#7159c1"
+              onPress={() => increment(item)}
+            />
             <VisualizeAmountInput editable={false}>
               {item.amount}
             </VisualizeAmountInput>
-            <Icon name="remove-circle-outline" size={26} color="#7159c1" />
+            <Icon
+              name="remove-circle-outline"
+              size={26}
+              color="#7159c1"
+              onPress={() => decrement(item)}
+            />
           </ChangeAmountContainer>
           <ProductPrice>R$ 179,90</ProductPrice>
         </ProductInfoContainer>
