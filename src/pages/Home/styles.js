@@ -8,7 +8,7 @@ export const ProductContainer = styled.View`
   margin: 20px;
   border-radius: 8px;
   width: 350px;
-  height: 480px;
+  height: 490px;
 `;
 
 export const ProductImage = styled.Image`
@@ -20,7 +20,7 @@ export const AddToCartButton = styled(RectButton)`
   background: #7159c1;
   flex-direction: row;
   align-items: center;
-  margin-top: 16px;
+  margin-top: auto;
   border-radius: 6px;
 `;
 
