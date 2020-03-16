@@ -32,5 +32,6 @@ module.exports = {
       { extensions: ['.jsx', '.js'] }
     ],
     'react/state-in-constructor': 'off',
+    'no-param-reassign': 'off'
   },
 };
