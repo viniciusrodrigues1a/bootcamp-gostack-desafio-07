@@ -1,7 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { FlatList } from 'react-native';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
   Container,
@@ -18,21 +22,26 @@ import {
 } from './styles';
 import { ContainerWrapper, ProductPrice, ProductName } from '../../styles';
 
-import img from '../../assets/images/aa.jpg';
+function Cart({ cart, removeFromCart }) {
+  function handleRemoveProduct(id) {
+    removeFromCart(id);
+  }
 
-export default function Cart() {
-  return (
-    <ContainerWrapper>
-      <Container>
+  function renderProduct({ item }) {
+    return (
+      <>
         <ProductContainer>
-          <ProductImage source={img} />
+          <ProductImage source={{ uri: item.image }} />
           <TextWrapper>
-            <ProductName numberOfLines={5}>
-              Tênis de caminhada leve confortável
-            </ProductName>
-            <ProductPrice>R$ 179,90</ProductPrice>
+            <ProductName numberOfLines={5}>{item.title}</ProductName>
+            <ProductPrice>R$ {item.price}</ProductPrice>
           </TextWrapper>
-          <Icon name="delete" size={40} color="#7159c1" />
+          <Icon
+            name="delete"
+            size={40}
+            color="#7159c1"
+            onPress={() => handleRemoveProduct(item.id)}
+          />
         </ProductContainer>
 
         <ProductInfoContainer>
@@ -43,6 +52,18 @@ export default function Cart() {
           </ChangeAmountContainer>
           <ProductPrice>R$ 179,90</ProductPrice>
         </ProductInfoContainer>
+      </>
+    );
+  }
+
+  return (
+    <ContainerWrapper>
+      <Container>
+        <FlatList
+          data={cart}
+          renderItem={renderProduct}
+          keyExtractor={item => item.id}
+        />
 
         <TotalText>Total</TotalText>
         <TotalValue>R$ 179,90</TotalValue>
@@ -54,3 +75,12 @@ export default function Cart() {
     </ContainerWrapper>
   );
 }
+
+const mapStateToProps = state => ({
+  cart: state.cart,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
