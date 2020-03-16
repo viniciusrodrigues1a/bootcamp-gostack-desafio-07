@@ -1,11 +1,6 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import { darken, lighten } from 'polished';
-
-export const Container = styled.View`
-  flex: 1;
-  background: ${lighten(0.08, '#141419')};
-`;
+import { darken } from 'polished';
 
 export const ProductContainer = styled.View`
   background: #fff;
@@ -19,16 +14,6 @@ export const ProductContainer = styled.View`
 export const ProductImage = styled.Image`
   width: 300px;
   height: 300px;
-`;
-
-export const ProductName = styled.Text`
-  color: #666;
-  font-size: 18px;
-  margin-top: 8px;
-`;
-
-export const ProductPrice = styled.Text`
-  font-size: 24px;
 `;
 
 export const AddToCartButton = styled(RectButton)`
