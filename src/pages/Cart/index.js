@@ -21,6 +21,8 @@ import {
   TotalValue,
   BuyButton,
   BuyButtonText,
+  EmptyCartContainer,
+  EmptyCartText,
 } from './styles';
 import { ContainerWrapper, ProductPrice, ProductName } from '../../styles';
 
@@ -81,18 +83,27 @@ function Cart({ cart, total, removeFromCart, updateAmount }) {
   return (
     <ContainerWrapper>
       <Container>
-        <FlatList
-          data={cart}
-          renderItem={renderProduct}
-          keyExtractor={item => String(item.id)}
-        />
+        {cart.length > 0 ? (
+          <>
+            <FlatList
+              data={cart}
+              renderItem={renderProduct}
+              keyExtractor={item => String(item.id)}
+            />
 
-        <TotalText>Total</TotalText>
-        <TotalValue>{total}</TotalValue>
+            <TotalText>Total</TotalText>
+            <TotalValue>{total}</TotalValue>
 
-        <BuyButton>
-          <BuyButtonText>Finalizar pedido</BuyButtonText>
-        </BuyButton>
+            <BuyButton>
+              <BuyButtonText>Finalizar pedido</BuyButtonText>
+            </BuyButton>
+          </>
+        ) : (
+          <EmptyCartContainer>
+            <Icon name="remove-shopping-cart" size={50} color="#999" />
+            <EmptyCartText>Seu carrinho está vazio</EmptyCartText>
+          </EmptyCartContainer>
+        )}
       </Container>
     </ContainerWrapper>
   );
@@ -101,7 +112,6 @@ function Cart({ cart, total, removeFromCart, updateAmount }) {
 const mapStateToProps = state => ({
   cart: state.cart.map(product => ({
     ...product,
-    priceFormatted: formatPrice(product.price),
     subtotal: formatPrice(product.price * product.amount),
   })),
   total: formatPrice(
