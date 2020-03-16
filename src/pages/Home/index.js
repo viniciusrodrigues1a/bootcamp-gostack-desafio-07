@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, TouchableOpacity, Text } from 'react-native';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as CartActions from '../../store/modules/cart/actions';
+
 import api from '../../services/api';
 
 import {
@@ -14,7 +19,7 @@ import {
 } from './styles';
 import { ContainerWrapper, ProductName, ProductPrice } from '../../styles';
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     products: [],
   };
@@ -29,20 +34,30 @@ export default class Home extends Component {
     this.setState({ products: response.data });
   };
 
-  renderProduct = ({ item }) => (
-    <ProductContainer key={item.id}>
-      <ProductImage source={{ uri: item.image }} />
-      <ProductName numberOfLines={3}>{item.title}</ProductName>
-      <ProductPrice>R$ {item.price}</ProductPrice>
-      <AddToCartButton onPress={() => this.props.navigation.navigate('Cart')}>
-        <AddToCartIconContainer>
-          <Icon name="add-shopping-cart" size={30} color="#fff" />
-          <AddToCartIconText>0</AddToCartIconText>
-        </AddToCartIconContainer>
-        <AddToCartText>Adicionar</AddToCartText>
-      </AddToCartButton>
-    </ProductContainer>
-  );
+  handleAddProduct = product => {
+    const { addToCart } = this.props;
+
+    addToCart(product);
+  };
+
+  renderProduct = ({ item }) => {
+    const { cart } = this.props;
+
+    return (
+      <ProductContainer key={item.id}>
+        <ProductImage source={{ uri: item.image }} />
+        <ProductName numberOfLines={3}>{item.title}</ProductName>
+        <ProductPrice>R$ {item.price}</ProductPrice>
+        <AddToCartButton onPress={() => this.handleAddProduct(item)}>
+          <AddToCartIconContainer>
+            <Icon name="add-shopping-cart" size={30} color="#fff" />
+            <AddToCartIconText>0</AddToCartIconText>
+          </AddToCartIconContainer>
+          <AddToCartText>Adicionar</AddToCartText>
+        </AddToCartButton>
+      </ProductContainer>
+    );
+  };
 
   render() {
     const { products } = this.state;
@@ -58,7 +73,16 @@ export default class Home extends Component {
             renderItem={this.renderProduct}
           />
         </View>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Cart')}>
+          <Text>go to cart</Text>
+        </TouchableOpacity>
       </ContainerWrapper>
     );
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Home);
