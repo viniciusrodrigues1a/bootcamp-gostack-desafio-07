@@ -32,7 +32,7 @@ export default class Home extends Component {
   renderProduct = ({ item }) => (
     <ProductContainer key={item.id}>
       <ProductImage source={{ uri: item.image }} />
-      <ProductName numberOfLines={1}>{item.title}</ProductName>
+      <ProductName numberOfLines={3}>{item.title}</ProductName>
       <ProductPrice>R$ {item.price}</ProductPrice>
       <AddToCartButton onPress={() => this.props.navigation.navigate('Cart')}>
         <AddToCartIconContainer>
