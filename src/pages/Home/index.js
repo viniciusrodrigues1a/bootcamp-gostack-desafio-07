@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as CartActions from '../../store/modules/cart/actions';
 
 import api from '../../services/api';
+import formatPrice from '../../utils/formatPrice';
 
 import {
   ProductContainer,
@@ -31,7 +32,12 @@ class Home extends Component {
   loadProducts = async () => {
     const response = await api.get('/products');
 
-    this.setState({ products: response.data });
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+    }));
+
+    this.setState({ products: data });
   };
 
   handleAddProduct = product => {
@@ -41,13 +47,13 @@ class Home extends Component {
   };
 
   renderProduct = ({ item }) => {
-    const { cart, amountInCart } = this.props;
+    const { amountInCart } = this.props;
 
     return (
       <ProductContainer key={item.id}>
         <ProductImage source={{ uri: item.image }} />
         <ProductName numberOfLines={3}>{item.title}</ProductName>
-        <ProductPrice>R$ {item.price}</ProductPrice>
+        <ProductPrice>{item.priceFormatted}</ProductPrice>
         <AddToCartButton onPress={() => this.handleAddProduct(item)}>
           <AddToCartIconContainer>
             <Icon name="add-shopping-cart" size={30} color="#fff" />
