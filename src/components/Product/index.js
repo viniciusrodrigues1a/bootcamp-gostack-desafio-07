@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -12,25 +13,24 @@ import {
 } from './styles';
 import { ProductName, ProductPrice } from '../../styles';
 
-export default class Product extends PureComponent {
+class Product extends PureComponent {
   state = {
     item: {},
-    amountInCart: {},
     handleAddProduct: () => {},
   };
 
   componentDidMount() {
-    const { item, amountInCart, handleAddProduct } = this.props;
+    const { item, handleAddProduct } = this.props;
 
     this.setState({
       item,
-      amountInCart,
       handleAddProduct,
     });
   }
 
   render() {
-    const { item, amountInCart, handleAddProduct } = this.state;
+    const { item, handleAddProduct } = this.state;
+    const { amountInCart } = this.props;
 
     return (
       <ProductContainer key={item.id}>
@@ -48,3 +48,12 @@ export default class Product extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  amountInCart: state.cart.reduce((amountInCart, product) => {
+    amountInCart[product.id] = product.amount;
+    return amountInCart;
+  }, {}),
+});
+
+export default connect(mapStateToProps)(Product);
