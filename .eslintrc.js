@@ -32,6 +32,7 @@ module.exports = {
       { extensions: ['.jsx', '.js'] }
     ],
     'react/state-in-constructor': 'off',
+    "no-console": ["error", { allow: ["tron"] }],
     'no-param-reassign': 'off'
   },
 };
