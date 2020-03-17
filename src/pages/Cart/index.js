@@ -83,7 +83,7 @@ function Cart({ cart, total, removeFromCart, updateAmount }) {
 
   return (
     <>
-      <Header />
+      <Header canGoBack />
       <ContainerWrapper>
         <Container>
           {cart.length > 0 ? (
