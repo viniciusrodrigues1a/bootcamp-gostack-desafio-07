@@ -9,12 +9,12 @@ import logo from '../../assets/images/logo.png';
 
 import { Container, BasketContainer, BasketText } from './styles';
 
-function Header({ productsInCart }) {
+function Header({ productsInCart, canGoBack }) {
   const navigation = useNavigation();
 
   return (
     <Container>
-      {navigation.canGoBack() && (
+      {canGoBack && (
         <Icon
           name="arrow-back"
           color="#fff"
