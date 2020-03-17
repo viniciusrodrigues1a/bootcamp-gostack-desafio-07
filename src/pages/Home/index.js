@@ -4,22 +4,14 @@ import { View, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header';
+import Product from '../../components/Product';
 import * as CartActions from '../../store/modules/cart/actions';
 
 import api from '../../services/api';
 import formatPrice from '../../utils/formatPrice';
 
-import {
-  ProductContainer,
-  ProductImage,
-  AddToCartButton,
-  AddToCartIconContainer,
-  AddToCartText,
-  AddToCartIconText,
-} from './styles';
-import { ContainerWrapper, ProductName, ProductPrice } from '../../styles';
+import { ContainerWrapper } from '../../styles';
 
 class Home extends Component {
   state = {
@@ -47,27 +39,9 @@ class Home extends Component {
     addToCart(product);
   };
 
-  renderProduct = ({ item }) => {
-    const { amountInCart } = this.props;
-
-    return (
-      <ProductContainer key={item.id}>
-        <ProductImage source={{ uri: item.image }} />
-        <ProductName numberOfLines={3}>{item.title}</ProductName>
-        <ProductPrice>{item.priceFormatted}</ProductPrice>
-        <AddToCartButton onPress={() => this.handleAddProduct(item)}>
-          <AddToCartIconContainer>
-            <Icon name="add-shopping-cart" size={30} color="#fff" />
-            <AddToCartIconText>{amountInCart[item.id] || 0}</AddToCartIconText>
-          </AddToCartIconContainer>
-          <AddToCartText>Adicionar</AddToCartText>
-        </AddToCartButton>
-      </ProductContainer>
-    );
-  };
-
   render() {
     const { products } = this.state;
+    const { amountInCart } = this.props;
 
     return (
       <>
@@ -79,7 +53,13 @@ class Home extends Component {
               data={products}
               keyExtractor={item => String(item.id)}
               horizontal
-              renderItem={this.renderProduct}
+              renderItem={({ item }) => (
+                <Product
+                  item={item}
+                  amountInCart={amountInCart}
+                  handleAddProduct={() => this.handleAddProduct(item)}
+                />
+              )}
             />
           </View>
         </ContainerWrapper>
