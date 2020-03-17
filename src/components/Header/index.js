@@ -24,7 +24,12 @@ function Header({ productsInCart }) {
       )}
       <Image source={logo} />
       <BasketContainer>
-        <Icon name="shopping-basket" size={30} color="#fff" />
+        <Icon
+          name="shopping-basket"
+          size={30}
+          color="#fff"
+          onPress={() => navigation.navigate('Cart')}
+        />
         <BasketText>{productsInCart}</BasketText>
       </BasketContainer>
     </Container>
