@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Header from '../../components/Header';
 import formatPrice from '../../utils/formatPrice';
 
 import * as CartActions from '../../store/modules/cart/actions';
@@ -81,31 +82,34 @@ function Cart({ cart, total, removeFromCart, updateAmount }) {
   }
 
   return (
-    <ContainerWrapper>
-      <Container>
-        {cart.length > 0 ? (
-          <>
-            <FlatList
-              data={cart}
-              renderItem={renderProduct}
-              keyExtractor={item => String(item.id)}
-            />
+    <>
+      <Header />
+      <ContainerWrapper>
+        <Container>
+          {cart.length > 0 ? (
+            <>
+              <FlatList
+                data={cart}
+                renderItem={renderProduct}
+                keyExtractor={item => String(item.id)}
+              />
 
-            <TotalText>Total</TotalText>
-            <TotalValue>{total}</TotalValue>
+              <TotalText>Total</TotalText>
+              <TotalValue>{total}</TotalValue>
 
-            <BuyButton>
-              <BuyButtonText>Finalizar pedido</BuyButtonText>
-            </BuyButton>
-          </>
-        ) : (
-          <EmptyCartContainer>
-            <Icon name="remove-shopping-cart" size={50} color="#999" />
-            <EmptyCartText>Seu carrinho está vazio</EmptyCartText>
-          </EmptyCartContainer>
-        )}
-      </Container>
-    </ContainerWrapper>
+              <BuyButton>
+                <BuyButtonText>Finalizar pedido</BuyButtonText>
+              </BuyButton>
+            </>
+          ) : (
+            <EmptyCartContainer>
+              <Icon name="remove-shopping-cart" size={50} color="#999" />
+              <EmptyCartText>Seu carrinho está vazio</EmptyCartText>
+            </EmptyCartContainer>
+          )}
+        </Container>
+      </ContainerWrapper>
+    </>
   );
 }
 

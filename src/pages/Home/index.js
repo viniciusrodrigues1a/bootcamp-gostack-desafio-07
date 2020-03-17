@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, FlatList, TouchableOpacity, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Header from '../../components/Header';
 import * as CartActions from '../../store/modules/cart/actions';
 
 import api from '../../services/api';
@@ -69,21 +70,20 @@ class Home extends Component {
     const { products } = this.state;
 
     return (
-      <ContainerWrapper>
-        <View>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            data={products}
-            keyExtractor={item => String(item.id)}
-            horizontal
-            renderItem={this.renderProduct}
-          />
-        </View>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Cart')}>
-          <Text>go to cart</Text>
-        </TouchableOpacity>
-      </ContainerWrapper>
+      <>
+        <Header />
+        <ContainerWrapper>
+          <View>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              data={products}
+              keyExtractor={item => String(item.id)}
+              horizontal
+              renderItem={this.renderProduct}
+            />
+          </View>
+        </ContainerWrapper>
+      </>
     );
   }
 }
