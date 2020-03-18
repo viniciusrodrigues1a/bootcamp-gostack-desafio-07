@@ -30,7 +30,19 @@ Instalar as dependências
 yarn install
 ```
 
+Instalar o json-server
+
+```sh
+yarn global add json-server
+```
+
 ### Rodando a aplicação:
+
+#### Rodando o servidor com json-server:
+
+```sh
+json-server server.json -p 3333
+```
 
 #### Android:
 
@@ -50,9 +62,13 @@ react-native run-ios
 react-native start
 ```
 
-### Resultado:
+## Desafio proposto:
 
 <img src=".github/demo.gif" height="400">
+
+## Solução:
+
+<img src=".github/solucao.gif" height="400">
 
 ## ⛏️ Feito com <a name = "built_using"></a>
 
