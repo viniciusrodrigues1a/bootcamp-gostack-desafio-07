@@ -62,13 +62,18 @@ react-native run-ios
 react-native start
 ```
 
-## Desafio proposto:
+<div align="center">
+  <div>
+    <h2>Desafio proposto:</h2>
+    <img src=".github/demo.gif" height="400">
+  </div>
 
-<img src=".github/demo.gif" height="400">
+  <div>
+    <h2>Solução:</h2>
+    <img src=".github/solucao.gif" height="400">
+  </div>
+</div>
 
-## Solução:
-
-<img src=".github/solucao.gif" height="400">
 
 ## ⛏️ Feito com <a name = "built_using"></a>
 
