@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -48,6 +49,17 @@ class Product extends PureComponent {
     );
   }
 }
+
+Product.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    image: PropTypes.string,
+    priceFormatted: PropTypes.string,
+  }).isRequired,
+  amountInCart: PropTypes.objectOf(PropTypes.number).isRequired,
+  handleAddProduct: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
   amountInCart: state.cart.reduce((amountInCart, product) => {

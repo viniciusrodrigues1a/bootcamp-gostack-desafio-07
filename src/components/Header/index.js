@@ -2,6 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -35,6 +36,16 @@ function Header({ productsInCart, canGoBack }) {
     </Container>
   );
 }
+
+Header.propTypes = {
+  productsInCart: PropTypes.number,
+  canGoBack: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  productsInCart: 0,
+  canGoBack: false,
+};
 
 const mapStateToProps = state => ({
   productsInCart: state.cart.length,

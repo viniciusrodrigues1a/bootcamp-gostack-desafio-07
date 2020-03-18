@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -65,6 +66,10 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  addToCartRequest: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
