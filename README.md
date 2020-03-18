@@ -13,6 +13,7 @@
 - [Sobre](#about)
 - [Primeiros passos](#getting_started)
 - [Feito com](#built_using)
+- [Desafio proposto / Minha solução](#my-solution)
 - [Licença](#license)
 
 ## 🧐 Sobre <a name = "about"></a>
@@ -62,19 +63,22 @@ react-native run-ios
 react-native start
 ```
 
-<div align="center">
-  <h2>Desafio proposto:</h2>
-  <img src=".github/demo.gif" height="400">
-
-  <h2>Solução:</h2>
-  <img src=".github/solucao.gif" height="400">
+<div align="center" name="my-solution">
+  <div>
+    <h2>Desafio proposto / Minha Solução</h2>
+    <img src=".github/demo.gif" height="400">
+    <img src=".github/solucao.gif" height="400">
+  </div>
 </div>
 
 
 ## ⛏️ Feito com <a name = "built_using"></a>
 
 - [ReactNative](https://reactnative.dev/)
+- [Immer](https://immerjs.github.io/immer/docs/introduction)
 - [Redux](https://redux.js.org/)
+- [Redux-Saga](https://redux-saga.js.org/)
+- [React-Redux](https://react-redux.js.org/)
 
 ## :memo: Licença <a name = "license"></a>
 
