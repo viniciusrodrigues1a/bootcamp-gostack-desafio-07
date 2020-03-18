@@ -20,10 +20,11 @@ export default function(state = [], action) {
       });
     case '@cart/UPDATE_AMOUNT':
       return produce(state, draft => {
-        const product = draft.find(p => p.id === action.id);
+        const { id, amount } = action;
+        const product = draft.find(p => p.id === id);
 
-        if (action.amount > 0) {
-          product.amount = action.amount;
+        if (product && amount > 0) {
+          product.amount = amount;
         }
       });
     default:
