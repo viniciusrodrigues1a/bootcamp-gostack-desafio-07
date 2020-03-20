@@ -66,7 +66,7 @@ export default function Cart() {
             <>
               <FlatList
                 data={cart}
-                renderItem={item => (
+                renderItem={({ item }) => (
                   <>
                     <ProductContainer>
                       <ProductImage source={{ uri: item.image }} />
