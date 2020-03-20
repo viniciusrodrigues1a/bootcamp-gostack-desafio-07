@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
-import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 
 import Header from '../../components/Header';
 import Product from '../../components/Product';
@@ -14,64 +12,46 @@ import formatPrice from '../../utils/formatPrice';
 
 import { ContainerWrapper } from '../../styles';
 
-class Home extends Component {
-  state = {
-    products: [],
-  };
+export default function Home() {
+  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    this.loadProducts();
+  useEffect(() => {
+    (async function loadProducts() {
+      const response = await api.get('/products');
+
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price),
+      }));
+
+      setProducts(data);
+    })();
+  }, []);
+
+  function handleAddProduct(product) {
+    dispatch(CartActions.addToCartRequest(product.id));
   }
 
-  loadProducts = async () => {
-    const response = await api.get('/products');
-
-    const data = response.data.map(product => ({
-      ...product,
-      priceFormatted: formatPrice(product.price),
-    }));
-
-    this.setState({ products: data });
-  };
-
-  handleAddProduct = product => {
-    const { addToCartRequest } = this.props;
-
-    addToCartRequest(product.id);
-  };
-
-  render() {
-    const { products } = this.state;
-
-    return (
-      <>
-        <Header />
-        <ContainerWrapper>
-          <View>
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              data={products}
-              keyExtractor={item => String(item.id)}
-              horizontal
-              renderItem={({ item }) => (
-                <Product
-                  item={item}
-                  handleAddProduct={() => this.handleAddProduct(item)}
-                />
-              )}
-            />
-          </View>
-        </ContainerWrapper>
-      </>
-    );
-  }
+  return (
+    <>
+      <Header />
+      <ContainerWrapper>
+        <View>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            data={products}
+            keyExtractor={item => String(item.id)}
+            horizontal
+            renderItem={({ item }) => (
+              <Product
+                item={item}
+                handleAddProduct={() => handleAddProduct(item)}
+              />
+            )}
+          />
+        </View>
+      </ContainerWrapper>
+    </>
+  );
 }
-
-Home.propTypes = {
-  addToCartRequest: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(null, mapDispatchToProps)(Home);

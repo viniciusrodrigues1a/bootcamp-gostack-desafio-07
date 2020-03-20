@@ -2,8 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header';
@@ -28,58 +27,34 @@ import {
 } from './styles';
 import { ContainerWrapper, ProductPrice, ProductName } from '../../styles';
 
-function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
+export default function Cart() {
+  const cart = useSelector(state =>
+    state.cart.map(product => ({
+      ...product,
+      subtotal: formatPrice(product.price * product.amount),
+    }))
+  );
+
+  const total = useSelector(state =>
+    formatPrice(
+      state.cart.reduce((totalSum, product) => {
+        return totalSum + product.price * product.amount;
+      }, 0)
+    )
+  );
+
+  const dispatch = useDispatch();
+
   function increment(product) {
-    updateAmountRequest(product.id, product.amount + 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount + 1));
   }
 
   function decrement(product) {
-    updateAmountRequest(product.id, product.amount - 1);
+    dispatch(CartActions.updateAmountRequest(product.id, product.amount - 1));
   }
 
   function handleRemoveProduct(id) {
-    removeFromCart(id);
-  }
-
-  function renderProduct({ item }) {
-    return (
-      <>
-        <ProductContainer>
-          <ProductImage source={{ uri: item.image }} />
-          <TextWrapper>
-            <ProductName numberOfLines={5}>{item.title}</ProductName>
-            <ProductPrice>{item.priceFormatted}</ProductPrice>
-          </TextWrapper>
-          <Icon
-            name="delete"
-            size={40}
-            color="#7159c1"
-            onPress={() => handleRemoveProduct(item.id)}
-          />
-        </ProductContainer>
-
-        <ProductInfoContainer>
-          <ChangeAmountContainer>
-            <Icon
-              name="add-circle-outline"
-              size={26}
-              color="#7159c1"
-              onPress={() => increment(item)}
-            />
-            <VisualizeAmountInput editable={false}>
-              {item.amount}
-            </VisualizeAmountInput>
-            <Icon
-              name="remove-circle-outline"
-              size={26}
-              color="#7159c1"
-              onPress={() => decrement(item)}
-            />
-          </ChangeAmountContainer>
-          <ProductPrice>{item.subtotal}</ProductPrice>
-        </ProductInfoContainer>
-      </>
-    );
+    dispatch(CartActions.removeFromCart(id));
   }
 
   return (
@@ -91,7 +66,46 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
             <>
               <FlatList
                 data={cart}
-                renderItem={renderProduct}
+                renderItem={item => (
+                  <>
+                    <ProductContainer>
+                      <ProductImage source={{ uri: item.image }} />
+                      <TextWrapper>
+                        <ProductName numberOfLines={5}>
+                          {item.title}
+                        </ProductName>
+                        <ProductPrice>{item.priceFormatted}</ProductPrice>
+                      </TextWrapper>
+                      <Icon
+                        name="delete"
+                        size={40}
+                        color="#7159c1"
+                        onPress={() => handleRemoveProduct(item.id)}
+                      />
+                    </ProductContainer>
+
+                    <ProductInfoContainer>
+                      <ChangeAmountContainer>
+                        <Icon
+                          name="add-circle-outline"
+                          size={26}
+                          color="#7159c1"
+                          onPress={() => increment(item)}
+                        />
+                        <VisualizeAmountInput editable={false}>
+                          {item.amount}
+                        </VisualizeAmountInput>
+                        <Icon
+                          name="remove-circle-outline"
+                          size={26}
+                          color="#7159c1"
+                          onPress={() => decrement(item)}
+                        />
+                      </ChangeAmountContainer>
+                      <ProductPrice>{item.subtotal}</ProductPrice>
+                    </ProductInfoContainer>
+                  </>
+                )}
                 keyExtractor={item => String(item.id)}
               />
 
@@ -113,36 +127,3 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
     </>
   );
 }
-
-Cart.propTypes = {
-  cart: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      image: PropTypes.string,
-      priceFormatted: PropTypes.string,
-      amount: PropTypes.number,
-      subtotal: PropTypes.string,
-    })
-  ).isRequired,
-  total: PropTypes.string.isRequired,
-  removeFromCart: PropTypes.func.isRequired,
-  updateAmountRequest: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  cart: state.cart.map(product => ({
-    ...product,
-    subtotal: formatPrice(product.price * product.amount),
-  })),
-  total: formatPrice(
-    state.cart.reduce((total, product) => {
-      return total + product.price * product.amount;
-    }, 0)
-  ),
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(CartActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);

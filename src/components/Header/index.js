@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
@@ -10,7 +10,8 @@ import logo from '../../assets/images/logo.png';
 
 import { Container, BasketContainer, BasketText } from './styles';
 
-function Header({ productsInCart, canGoBack }) {
+export default function Header({ canGoBack }) {
+  const productsInCart = useSelector(state => state.cart.length);
   const navigation = useNavigation();
 
   return (
@@ -38,17 +39,9 @@ function Header({ productsInCart, canGoBack }) {
 }
 
 Header.propTypes = {
-  productsInCart: PropTypes.number,
   canGoBack: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  productsInCart: 0,
   canGoBack: false,
 };
-
-const mapStateToProps = state => ({
-  productsInCart: state.cart.length,
-});
-
-export default connect(mapStateToProps)(Header);
