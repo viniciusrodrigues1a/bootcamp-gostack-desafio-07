@@ -25,6 +25,10 @@ App de uma loja virtual desenvolvida com React Native e Redux.
 Estas instruçōes te darão uma cópia funcional do projeto na sua máquina local para desenvolvimento e testes.
 ### Pré-requisitos
 
+- JDK
+- Android SDK
+- React Native CLI
+
 Instalar as dependências
 
 ```sh
